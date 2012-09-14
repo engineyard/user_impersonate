@@ -8,10 +8,7 @@ When /^I visit the takeover page$/ do
 end
 
 Then /^I am told that page does not exist$/ do
-  # save_and_open_page
-  assert page.has_content?("The page you were looking for doesn't exist (404)")
-  
-  assert_response 404
+  assert page.has_content?("You don't have access to this section.")
 end
 
 When /^I search for a user "(.*?)"$/ do |name|
