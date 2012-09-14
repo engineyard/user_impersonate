@@ -7,11 +7,11 @@ require "user_takeover/version"
 Gem::Specification.new do |s|
   s.name        = "user_takeover"
   s.version     = UserTakeover::VERSION
-  s.authors     = ["TODO: Your name"]
-  s.email       = ["TODO: Your email"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of UserTakeover."
-  s.description = "TODO: Description of UserTakeover."
+  s.authors     = ["Dr Nic Williams", "Many people at Engine Yard"]
+  s.email       = ["drnicwilliams@gmail.com"]
+  s.homepage    = "https://drnic.github.com/user-takeover"
+  s.summary     = "Allow staff users to pretend to be your customers"
+  s.description = "Allow staff users to pretend to be your customers; to takeover their account."
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]
@@ -20,4 +20,6 @@ Gem::Specification.new do |s|
   # s.add_dependency "jquery-rails"
 
   s.add_development_dependency "sqlite3"
+  s.add_development_dependency "cucumber-rails"
+  s.add_development_dependency "database_cleaner"
 end
