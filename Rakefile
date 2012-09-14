@@ -36,6 +36,6 @@ Rake::TestTask.new(:test) do |t|
   t.verbose = false
 end
 
-# task :cucumber => 'app:cucumber'
+task :cucumber => 'app:cucumber'
 # task :default => [:test, :spec, :cucumber]
 task :default => :test
