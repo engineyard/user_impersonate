@@ -1,2 +1,23 @@
-<h1>Takeover#index</h1>
-<p>Find me in app/views/user_takeover/takeover/index.html.erb</p>
+<p>Search for a user to takeover:</p>
+
+<%= form_tag root_url, :method => 'get' do %>
+  <p>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search", :name => nil %>
+  </p>
+<% end %>
+
+<% if @users %>
+<% if @users.empty? %>
+<p>No users found</p>
+<% else %>
+<ul>
+  <% @users.each do |user| %>
+  <li>
+    <%= user.name %>
+    <%= link_to "Takeover", takeover_user_path(user) %>
+  </li>
+  <% end %>
+</ul>
+<% end %>
+<% end %>

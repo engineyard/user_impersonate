@@ -1,5 +1,6 @@
 <% if user_signed_in? -%>
   <h1>Welcome <%= current_user.name %>!</h1>
+  <%= link_to "Takeover a user", takeover_engine.root_url, method: "DELETE" %>
   <%= link_to "Sign out", destroy_user_session_path, method: "DELETE" %>
 <% else -%>
   <h1>Welcome guest!</h1>

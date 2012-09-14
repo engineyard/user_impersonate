@@ -4,5 +4,5 @@ Rails.application.routes.draw do
 
   root :to => "home#index"
 
-  mount UserTakeover::Engine => "/takeover"
+  mount UserTakeover::Engine => "/takeover", as: "takeover_engine"
 end
