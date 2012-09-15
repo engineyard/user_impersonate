@@ -1,6 +1,8 @@
 <% if user_signed_in? -%>
   <h1>Welcome <%= current_user.name %>!</h1>
-  <%= link_to "Impersonate a user", impersonate_engine.root_url, method: "DELETE" %>
+  <% if current_user.staff? %>
+    <%= link_to "Impersonate a user", impersonate_engine.root_url, method: "DELETE" %>
+  <% end %>
   <%= link_to "Sign out", destroy_user_session_path, method: "DELETE" %>
 <% else -%>
   <h1>Welcome guest!</h1>
