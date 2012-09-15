@@ -1,2 +1,4 @@
 You ( <%= staff_user.name %> ) are impersonating <%= current_user.name %>
 ( User id: <%= current_user.to_param %> )
+
+<%= link_to "Revert to admin", impersonate_engine.revert_impersonate_user_url %>
