@@ -20,6 +20,10 @@ When /^I click link "(.*?)"$/ do |button|
   click_link button
 end
 
+When /^I click button "(.*?)"$/ do |button|
+  click_button button
+end
+
 Then /^I see "(.*?)"$/ do |text|
   assert page.has_content?(text)
 end

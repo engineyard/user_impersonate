@@ -19,7 +19,7 @@ Feature: Impersonate a user
     And I search for a user "Normal User"
     And I click link "Impersonate"
     Then I see "You ( Dr Nic Williams ) are impersonating Normal User ( User id: 2 )"
-    When I click link "Revert to admin"
+    When I click button "Revert to admin"
 
     Then I do not see "are impersonating"
     Then I see "No longer impersonating Normal User"

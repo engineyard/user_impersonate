@@ -11,10 +11,12 @@
     <%= render 'user_impersonate/header' %>
   <% end %>
 
-  <p class="notice"><%= flash[:notice] %></p>
-  <p class="alert"><%= flash[:error] %></p>
+  <div id="container">
+    <p class="notice"><%= flash[:notice] %></p>
+    <p class="alert"><%= flash[:error] %></p>
 
-  <%= yield %>
+    <%= yield %>
+  </div>
 
 </body>
 </html>
