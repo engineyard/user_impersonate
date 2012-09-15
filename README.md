@@ -6,7 +6,7 @@
 Add to your layout
 
 ``` haml
-- if session.staff_user
+- if staff_user
   = render 'user_impersonate/header'
 ```
 

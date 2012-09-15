@@ -13,6 +13,8 @@ module UserImpersonate
     
     # Perform the user impersonate action
     def create
+      @user = User.find(params[:user_id])
+      impersonate(@user)
       redirect_to main_app.root_url
     end
     
