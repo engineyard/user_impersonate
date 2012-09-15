@@ -7,6 +7,10 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <% if session.staff_user %>
+    <%= render 'user_impersonate/header' %>
+  <% end %>
+
   <p class="notice"><%= flash[:notice] %></p>
   <p class="alert"><%= flash[:error] %></p>
 
