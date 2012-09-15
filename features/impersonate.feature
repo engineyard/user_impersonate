@@ -22,4 +22,5 @@ Feature: Impersonate a user
     When I click link "Revert to admin"
 
     Then I do not see "are impersonating"
+    Then I see "No longer impersonating Normal User"
   

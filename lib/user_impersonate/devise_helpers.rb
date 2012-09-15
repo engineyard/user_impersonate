@@ -2,9 +2,19 @@
 module UserImpersonate
   module DeviseHelpers
     module Helpers
+      # current_user changes from a staff user to
+      # +new_user+; current user stored in +session[:staff_user_id]+
       def impersonate(new_user)
         session[:staff_user_id] = current_user.id # 
         sign_in new_user, bypass: true
+      end
+      
+      # revert the +current_user+ back to the staff user
+      # stored in +session[:staff_user_id]+
+      def revert_impersonate
+        return unless staff_user
+        sign_in staff_user, bypass: true
+        session[:staff_user_id] = nil
       end
     end
     

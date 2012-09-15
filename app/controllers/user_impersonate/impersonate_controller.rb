@@ -3,7 +3,7 @@ require_dependency "user_impersonate/application_controller"
 module UserImpersonate
   class ImpersonateController < ApplicationController
     before_filter :authenticate_user!
-    before_filter :staff_only!
+    before_filter :staff_only!, except: ["destroy"]
     
     def index
       if params[:search]
@@ -16,6 +16,23 @@ module UserImpersonate
       @user = User.find(params[:user_id])
       impersonate(@user)
       redirect_to main_app.root_url
+    end
+    
+    # Revert the user impersonation
+    def destroy
+      unless staff_user
+        flash[:notice] = "You weren't impersonating anyone"
+        redirect_to main_app.root_url and return
+      end
+      user = current_user
+      revert_impersonate
+      if user
+        flash[:notice] = "No longer impersonating #{user.name}"
+        redirect_to main_app.root_url
+      else
+        flash[:notice] = "No longer impersonating a user"
+        redirect_to main_app.root_url
+      end
     end
     
     private
