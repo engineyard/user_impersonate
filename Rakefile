@@ -38,4 +38,4 @@ end
 
 task :cucumber => 'app:cucumber'
 # task :default => [:test, :spec, :cucumber]
-task :default => :test
+task :default => [:test, :cucumber]
