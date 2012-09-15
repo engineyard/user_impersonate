@@ -1,15 +1,31 @@
-# UserImpersonate
+# User Impersonate
 
+Allow staff users to impersonate your normal users: see what they see, only do what they can do.
+
+## Example usage
+
+<img src="https://img.skitch.com/20120916-exjmwkufj16kijjdsaf2dpn6tk.png" alt="navigate to impersonation section somehow" />
+
+<img src="https://img.skitch.com/20120916-b1exb1penw4cdt41c45gxrphbr.png" alt="Impersonate a user" />
+
+<img src="https://img.skitch.com/20120916-xq5q5gfyfm14ibkqf9e36hb3yp.png" alt="Impersonating a user" />
 
 ## Installation
 
-Add to your layout
+Add to your layout the following HAML
 
 ``` haml
 - if staff_user
   = render 'user_impersonate/header'
 ```
 
+or ERb:
+
+``` erb
+<% if staff_user %>
+  <%= render 'user_impersonate/header' %>
+<% end %>
+```
 
 Engine Yard Cloud uses a header that looks like:
 
