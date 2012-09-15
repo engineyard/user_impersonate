@@ -17,9 +17,9 @@ Feature: Takeover a user
 
     When I visit the takeover page
     And I search for a user "Normal User"
-    And I click "Takeover"
+    And I click link "Takeover"
     Then I see "You ( Dr Nic Williams ) are impersonating Bob ( User id: 1 )"
-    When I click "Revert to admin"
+    When I click link "Revert to admin"
 
     Then I do not see "are impersonating"
   

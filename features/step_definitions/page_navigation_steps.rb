@@ -12,12 +12,12 @@ Then /^I am told that page does not exist$/ do
 end
 
 When /^I search for a user "(.*?)"$/ do |name|
-  fill_in "Search user", with: name
-  click "Search"
+  fill_in "search", with: name
+  click_button "Search"
 end
 
-When /^I click "(.*?)"$/ do |button|
-  click button
+When /^I click link "(.*?)"$/ do |button|
+  click_link button
 end
 
 Then /^I see "(.*?)"$/ do |text|
