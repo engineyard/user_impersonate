@@ -4,9 +4,15 @@ Allow staff users to impersonate your normal users: see what they see, only do w
 
 ## Example usage
 
+When logged in as a Staff user, navigate to the `/impersonate` section that is mounted with this Rails engine:
+
 <img src="https://img.skitch.com/20120916-exjmwkufj16kijjdsaf2dpn6tk.png" alt="navigate to impersonation section somehow" />
 
+Search for a user and impersonate them:
+
 <img src="https://img.skitch.com/20120916-b1exb1penw4cdt41c45gxrphbr.png" alt="Impersonate a user" />
+
+When you are impersonating a user you see what they see, with a header section above:
 
 <img src="https://img.skitch.com/20120916-xq5q5gfyfm14ibkqf9e36hb3yp.png" alt="Impersonating a user" />
 
