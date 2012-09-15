@@ -6,8 +6,11 @@ module UserImpersonate
     before_filter :staff_only!, except: ["destroy"]
     
     def index
+      users_table = Arel::Table.new(:users)
+      @users = User.order("updated_at DESC").
+                    where(users_table[:id].not_in [current_user.id])
       if params[:search]
-        @users = User.where("name like ?", "%#{params[:search]}%")
+        @users = @users.where("name like ?", "%#{params[:search]}%")
       end
     end
     
