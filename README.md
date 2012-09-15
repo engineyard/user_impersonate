@@ -1,6 +1,7 @@
-= UserImpersonate
+# UserImpersonate
 
-This project rocks and uses MIT-LICENSE.
+
+## Installation
 
 Add to your layout
 
