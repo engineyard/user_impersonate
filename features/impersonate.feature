@@ -1,13 +1,13 @@
-Feature: Takeover a user
+Feature: Impersonate a user
   As a staff user
   I want to pretend to be a customer
 
-  Scenario: Normal user cannot takeover other users
+  Scenario: Normal user cannot impersonate other users
     Given I am a normal user "Normal User"
     When I visit the home page
     Then I do not see "are impersonating"
     
-    When I visit the takeover page
+    When I visit the impersonate page
     Then I am told that page does not exist
   
   Scenario: Staff user finds, takes over and exist
@@ -15,9 +15,9 @@ Feature: Takeover a user
     When I visit the home page
     Then I do not see "are impersonating"
 
-    When I visit the takeover page
+    When I visit the impersonate page
     And I search for a user "Normal User"
-    And I click link "Takeover"
+    And I click link "Impersonate"
     Then I see "You ( Dr Nic Williams ) are impersonating Bob ( User id: 1 )"
     When I click link "Revert to admin"
 

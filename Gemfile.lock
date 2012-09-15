@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    user_takeover (0.0.1)
+    user_impersonate (0.0.1)
       rails (~> 3.2.8)
 
 GEM
@@ -161,4 +161,4 @@ DEPENDENCIES
   jquery-rails
   launchy
   sqlite3
-  user_takeover!
+  user_impersonate!

@@ -1,4 +1,4 @@
-<p>Search for a user to takeover:</p>
+<p>Search for a user to impersonate:</p>
 
 <%= form_tag root_url, :method => 'get' do %>
   <p>
@@ -15,7 +15,7 @@
   <% @users.each do |user| %>
   <li>
     <%= user.name %>
-    <%= link_to "Takeover", takeover_user_path(user) %>
+    <%= link_to "Impersonate", impersonate_user_path(user) %>
   </li>
   <% end %>
 </ul>

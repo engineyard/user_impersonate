@@ -1,4 +1,4 @@
-module UserTakeover
+module UserImpersonate
   class ApplicationController < ActionController::Base
   end
 end

@@ -1,5 +1,5 @@
-UserTakeover::Engine.routes.draw do
-  match("/user/:id" , to: "takeover#create", as: :takeover_user)
+UserImpersonate::Engine.routes.draw do
+  match("/user/:id" , to: "impersonate#create", as: :impersonate_user)
   
-  root to: "takeover#index"
+  root to: "impersonate#index"
 end

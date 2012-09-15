@@ -1,7 +1,7 @@
-require_dependency "user_takeover/application_controller"
+require_dependency "user_impersonate/application_controller"
 
-module UserTakeover
-  class TakeoverController < ApplicationController
+module UserImpersonate
+  class ImpersonateController < ApplicationController
     before_filter :authenticate_user!
     before_filter :staff_only!
     
@@ -11,7 +11,7 @@ module UserTakeover
       end
     end
     
-    # Perform the user takeover action
+    # Perform the user impersonate action
     def create
       redirect_to main_app.root_url
     end

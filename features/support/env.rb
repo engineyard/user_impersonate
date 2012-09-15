@@ -63,6 +63,6 @@ Cucumber::Rails::Database.javascript_strategy = :truncation
 
 # include Engine routes in Cucumber world
 module EngineRoutesHelper
-  include UserTakeover::Engine.routes.url_helpers
+  include UserImpersonate::Engine.routes.url_helpers
 end
 World(EngineRoutesHelper)

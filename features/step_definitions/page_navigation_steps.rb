@@ -2,9 +2,9 @@ When /^I visit the home page$/ do
   visit "/"
 end
 
-When /^I visit the takeover page$/ do
+When /^I visit the impersonate page$/ do
   # TODO should take a secret token of some sort?
-  visit "/takeover"
+  visit "/impersonate"
 end
 
 Then /^I am told that page does not exist$/ do
