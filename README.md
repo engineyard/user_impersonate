@@ -51,8 +51,9 @@ or ERb:
 
 To support this Rails engine, you need to add some things.
 
-* `current_user` helper within controllers
-* `current_user.staff?` - your `User` model needs a `staff?` to identify if the current user is allowed to impersonate other users
+* `current_user` helper within controllers & helpers
+* `current_user.name` (User#name, used within the default header partial)
+* `current_user.staff?` - your `User` model needs a `staff?` to identify if the current user is allowed to impersonate other users; if missing, no user can access impersonation system
 
 ### User#staff?
 
