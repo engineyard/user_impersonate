@@ -65,11 +65,15 @@ rake db:migrate db:test:prepare
 
 ## Customization
 
-Engine Yard Cloud uses a header that looks like:
+### Header
+
+You can override the bright red header by creating a `app/views/user_impersonate/_header.html.erb` file (or whatever template system you like).
+
+For example, the Engine Yard Cloud uses a header that looks like:
 
 ![](https://img.skitch.com/20120915-mk8mnpdsu5nuym3bxs678qf1a8.png)
 
-The HAML partial for this header is:
+The `app/views/user_impersonate/_header.html.haml` HAML partial for this header would be:
 
 ``` haml
 %div#impersonating
