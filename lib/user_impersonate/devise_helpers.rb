@@ -12,14 +12,14 @@ module UserImpersonate
       # revert the +current_user+ back to the staff user
       # stored in +session[:staff_user_id]+
       def revert_impersonate
-        return unless staff_user
-        sign_in staff_user, bypass: true
+        return unless current_staff_user
+        sign_in current_staff_user, bypass: true
         session[:staff_user_id] = nil
       end
     end
     
     module UrlHelpers
-      def staff_user
+      def current_staff_user
         return unless session[:staff_user_id]
         @staff_user ||= User.find(session[:staff_user_id])
       end

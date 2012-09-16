@@ -35,14 +35,14 @@ Next, add the following to your layout:
 HAML:
 
 ``` haml
-- if staff_user
+- if current_staff_user
   = render 'user_impersonate/header'
 ```
 
 or ERb:
 
 ``` erb
-<% if staff_user %>
+<% if current_staff_user %>
   <%= render 'user_impersonate/header' %>
 <% end %>
 ```
