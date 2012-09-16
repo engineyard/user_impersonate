@@ -2,6 +2,12 @@
 
 Allow staff users to impersonate your normal users: see what they see, only do what they can do.
 
+This concept and code was extracted from [Engine Yard Cloud](http://www.engineyard.com/products/cloud), which we use when we want to help support a customer remotely.
+
+This Rails engine currently supports the following Rails authentication systems:
+
+* [Devise](https://github.com/plataformatec/devise)
+
 ## Example usage
 
 When logged in as a Staff user, navigate to the `/impersonate` section that is mounted with this Rails engine:
@@ -18,7 +24,15 @@ When you are impersonating a user you see what they see, with a header section a
 
 ## Installation
 
-Add to your layout the following HAML
+Add the gem to your Rails application's Gemfile and run `bundle`:
+
+``` ruby
+gem "user_impersonate"
+```
+
+Next, add the following to your layout:
+
+HAML:
 
 ``` haml
 - if staff_user
@@ -32,6 +46,24 @@ or ERb:
   <%= render 'user_impersonate/header' %>
 <% end %>
 ```
+
+## Integration
+
+To support this Rails engine, you need to add some things.
+
+* `current_user` helper within controllers
+* `current_user.staff?` - your `User` model needs a `staff?` to identify if the current user is allowed to impersonate other users
+
+### User#staff?
+
+One way to add this helper is to add a column to your User model:
+
+```
+rails g migration add_staff_flag_to_users staff:boolean
+rake db:migrate db:test:prepare
+```
+
+## Customization
 
 Engine Yard Cloud uses a header that looks like:
 
