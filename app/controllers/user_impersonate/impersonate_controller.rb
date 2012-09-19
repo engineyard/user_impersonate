@@ -27,7 +27,7 @@ module UserImpersonate
     def create
       @user = find_user(params[:user_id])
       impersonate(@user)
-      redirect_to main_app.root_url
+      redirect_on_impersonate(@user)
     end
     
     # Revert the user impersonation
@@ -35,16 +35,16 @@ module UserImpersonate
     def destroy
       unless current_staff_user
         flash[:notice] = "You weren't impersonating anyone"
-        redirect_to main_app.root_url and return
+        redirect_on_revert and return
       end
       user = current_user
       revert_impersonate
       if user
         flash[:notice] = "No longer impersonating #{user}"
-        redirect_to main_app.root_url
+        redirect_on_revert(user)
       else
         flash[:notice] = "No longer impersonating a user"
-        redirect_to main_app.root_url
+        redirect_on_revert
       end
     end
     
@@ -92,6 +92,14 @@ module UserImpersonate
     
     def user_is_staff_method
       UserImpersonate::Engine.config.user_is_staff_method || "staff?"
+    end
+    
+    def redirect_on_impersonate(impersonated_user)
+      redirect_to UserImpersonate::Engine.config.redirect_on_impersonate
+    end
+    
+    def redirect_on_revert(impersonated_user = nil)
+      redirect_to UserImpersonate::Engine.config.redirect_on_revert
     end
   end
 end
