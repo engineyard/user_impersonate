@@ -71,11 +71,20 @@ module UserImpersonate
     end
 
     def user_finder_method
-      (UserImpersonate::Engine.config.user_finder || "find").to_sym
+      finder = if UserImpersonate::Engine.config.respond_to? :user_finder
+        UserImpersonate::Engine.config.user_finder
+      else
+        "find"
+      end
+      finder.to_sym
     end
 
     def user_class_name
-      UserImpersonate::Engine.config.user_class || "User"
+      if UserImpersonate::Engine.config.respond_to? :user_class
+        UserImpersonate::Engine.config.user_class
+      else
+        "User"
+      end
     end
 
     def user_class
@@ -87,19 +96,37 @@ module UserImpersonate
     end
     
     def user_id_column
-      UserImpersonate::Engine.config.user_id_column || "id"
+      if UserImpersonate::Engine.config.respond_to? :user_id_column
+        UserImpersonate::Engine.config.user_id_column
+      else
+        "id"
+      end
     end
     
     def user_is_staff_method
-      UserImpersonate::Engine.config.user_is_staff_method || "staff?"
+      if UserImpersonate::Engine.config.respond_to? :user_is_staff_method
+        UserImpersonate::Engine.config.user_is_staff_method
+      else
+        "staff?"
+      end
     end
     
     def redirect_on_impersonate(impersonated_user)
-      redirect_to UserImpersonate::Engine.config.redirect_on_impersonate
+      url = if UserImpersonate::Engine.config.respond_to? :redirect_on_impersonate
+        UserImpersonate::Engine.config.redirect_on_impersonate
+      else
+        "/"
+      end
+      redirect_to url
     end
     
     def redirect_on_revert(impersonated_user = nil)
-      redirect_to UserImpersonate::Engine.config.redirect_on_revert
+      url = if UserImpersonate::Engine.config.respond_to? :redirect_on_revert
+        UserImpersonate::Engine.config.redirect_on_revert
+      else
+        "/"
+      end
+      redirect_to url
     end
   end
 end
