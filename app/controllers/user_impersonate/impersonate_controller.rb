@@ -44,6 +44,8 @@ module UserImpersonate
         flash[:error] = "You don't have access to this section."
         redirect_to :back
       end
+    rescue ActionController::RedirectBackError
+      redirect_to '/'
     end
   end
 end
