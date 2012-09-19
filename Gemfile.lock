@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    user_impersonate (0.7.0)
+    user_impersonate (0.8.0)
       rails (~> 3.2.0)
 
 GEM

@@ -1,5 +1,10 @@
 # Change Log
 
+## 0.8. - Not specific to Devise
+
+* Can specify the sign in & authenticate methods to use
+* Defaults for missing config now working 
+
 ## 0.7.0 - Redirect configuration
 
 * Options for specifying where redirects go to and their defaults:
