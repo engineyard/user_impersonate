@@ -1,0 +1,6 @@
+Description:
+    Installs the routes and configurable portions of the 
+    user_impersonate engine.
+
+Example:
+    rails g user_impersonate

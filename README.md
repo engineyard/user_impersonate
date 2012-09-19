@@ -99,6 +99,7 @@ rake db:migrate db:test:prepare
 
 ### Header
 
+
 You can override the bright red header by creating a `app/views/user_impersonate/_header.html.erb` file (or whatever template system you like).
 
 For example, the Engine Yard Cloud uses a header that looks like:
@@ -134,4 +135,34 @@ The `app/views/user_impersonate/_header.html.haml` HAML partial for this header 
       or
       = form_tag [:admin, :revert], :method => :delete, :class => 'revert-form' do
         %button{:type => "submit"} Revert to admin
+```
+
+### Redirects
+
+By default, when you impersonate and when you stop impersonating a user you are redirected to the root url.
+
+Configure alternate paths using:
+
+``` ruby
+???
+```
+
+### User model
+
+By default, it assumes the User model is `User`.
+
+Override with:
+
+``` ruby
+???
+```
+
+### User lookup
+
+By default, a User to be impersonated is looked-up using `User.find(params[:user_id])`, where `params[:user_id]` is the `User#to_params` value. That is, the ActiveRecord method.
+
+Override `find` with:
+
+``` ruby
+???
 ```
