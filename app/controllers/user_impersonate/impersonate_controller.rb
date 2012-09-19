@@ -66,25 +66,16 @@ module UserImpersonate
     # Similar to user.staff?
     # Using all the UserImpersonate config options
     def user_is_staff?(user)
-      current_user.respond_to?(user_is_staff_method.to_sym) && 
+      current_user.respond_to?(user_is_staff_method.to_sym) &&
         current_user.send(user_is_staff_method.to_sym)
     end
 
     def user_finder_method
-      finder = if UserImpersonate::Engine.config.respond_to? :user_finder
-        UserImpersonate::Engine.config.user_finder
-      else
-        "find"
-      end
-      finder.to_sym
+      (UserImpersonate::Engine.config.try(:user_finder) || "find").to_sym
     end
 
     def user_class_name
-      if UserImpersonate::Engine.config.respond_to? :user_class
-        UserImpersonate::Engine.config.user_class
-      else
-        "User"
-      end
+      UserImpersonate::Engine.config.try(:user_class) || "User"
     end
 
     def user_class
@@ -96,36 +87,20 @@ module UserImpersonate
     end
     
     def user_id_column
-      if UserImpersonate::Engine.config.respond_to? :user_id_column
-        UserImpersonate::Engine.config.user_id_column
-      else
-        "id"
-      end
+      UserImpersonate::Engine.config.try(:user_id_column) || "id"
     end
     
     def user_is_staff_method
-      if UserImpersonate::Engine.config.respond_to? :user_is_staff_method
-        UserImpersonate::Engine.config.user_is_staff_method
-      else
-        "staff?"
-      end
+      UserImpersonate::Engine.config.try(:user_is_staff_method) || "staff?"
     end
     
     def redirect_on_impersonate(impersonated_user)
-      url = if UserImpersonate::Engine.config.respond_to? :redirect_on_impersonate
-        UserImpersonate::Engine.config.redirect_on_impersonate
-      else
-        "/"
-      end
+      url = UserImpersonate::Engine.config.try(:redirect_on_impersonate) || main_app.root_url
       redirect_to url
     end
     
     def redirect_on_revert(impersonated_user = nil)
-      url = if UserImpersonate::Engine.config.respond_to? :redirect_on_revert
-        UserImpersonate::Engine.config.redirect_on_revert
-      else
-        "/"
-      end
+      url = UserImpersonate::Engine.config.redirect_on_revert || root_url
       redirect_to url
     end
   end
