@@ -2,7 +2,7 @@ require_dependency "user_impersonate/application_controller"
 
 module UserImpersonate
   class ImpersonateController < ApplicationController
-    before_filter :authenticate_user!
+    before_filter :authenticate_the_user
     before_filter :current_user_must_be_staff!, except: ["destroy"]
     
     # Display list of all users, except current (staff) user
@@ -74,18 +74,13 @@ module UserImpersonate
     end
 
     def sign_in_user(user)
-      method = UserImpersonate::Engine.config.try(:sign_in_user_method) || "sign_in"
+      method = config_or_default :sign_in_user_method, "sign_in"
       self.send(method.to_sym, user)
     end
 
-    def authenticate_user!
-      method = UserImpersonate::Engine.config.try(:authenticate_user_method) || "ensure_authenticated"
-      # super.send(method.to_sym)
-      if method == "authenticate_user!"
-        super.send(method.to_sym)
-      else
-        self.send(method.to_sym)
-      end
+    def authenticate_the_user
+      method = config_or_default :authenticate_user_method, "authenticate_user!"
+      self.send(method.to_sym)
     end
 
     # Helper to load a User, using all the UserImpersonate config options
@@ -101,11 +96,11 @@ module UserImpersonate
     end
 
     def user_finder_method
-      (UserImpersonate::Engine.config.try(:user_finder) || "find").to_sym
+      (config_or_default :user_finder, "find").to_sym
     end
 
     def user_class_name
-      UserImpersonate::Engine.config.try(:user_class) || "User"
+      config_or_default :user_class, "User"
     end
 
     def user_class
@@ -117,21 +112,31 @@ module UserImpersonate
     end
     
     def user_id_column
-      UserImpersonate::Engine.config.try(:user_id_column) || "id"
+      config_or_default :user_id_column, "id"
     end
     
     def user_is_staff_method
-      UserImpersonate::Engine.config.try(:user_is_staff_method) || "staff?"
+      config_or_default :user_is_staff_method, "staff?"
     end
     
     def redirect_on_impersonate(impersonated_user)
-      url = UserImpersonate::Engine.config.try(:redirect_on_impersonate) || main_app.root_url
+      url = config_or_default :redirect_on_impersonate, main_app.root_url
       redirect_to url
     end
     
     def redirect_on_revert(impersonated_user = nil)
-      url = UserImpersonate::Engine.config.redirect_on_revert || root_url
+      url = config_or_default :redirect_on_revert, root_url
       redirect_to url
+    end
+
+    # gets overridden config value for engine, else returns default
+    def config_or_default(attribute, default)
+      attribute = attribute.to_sym
+      if UserImpersonate::Engine.config.respond_to?(attribute)
+        UserImpersonate::Engine.config.send(attribute)
+      else
+        default
+      end
     end
   end
 end
