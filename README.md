@@ -84,7 +84,6 @@ You can now go to [http://localhost:3000/impersonate](http://localhost:3000/impe
 To support this Rails engine, you need to add some things.
 
 * `current_user` helper within controllers & helpers
-* `current_user` (User#name, used within the default header partial)
 * `current_user.staff?` - your `User` model needs a `staff?` to identify if the current user is allowed to impersonate other users; if missing, no user can access impersonation system
 
 ### User#staff?
