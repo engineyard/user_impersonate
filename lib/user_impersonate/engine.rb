@@ -8,5 +8,10 @@ module UserImpersonate
         Devise.include_helpers(UserImpersonate::DeviseHelpers)
       end
     end
+
+    config.to_prepare do
+      ::ApplicationController.helper(UserImpersonate::ApplicationHelper)
+      ::ApplicationController.send(:include, UserImpersonate::ApplicationHelper)
+    end
   end
 end

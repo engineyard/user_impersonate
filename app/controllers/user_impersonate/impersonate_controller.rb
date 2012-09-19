@@ -58,6 +58,36 @@ module UserImpersonate
       redirect_to '/'
     end
 
+    # current_user changes from a staff user to
+    # +new_user+; current user stored in +session[:staff_user_id]+
+    def impersonate(new_user)
+      session[:staff_user_id] = current_user.id # 
+      sign_in_user new_user
+    end
+    
+    # revert the +current_user+ back to the staff user
+    # stored in +session[:staff_user_id]+
+    def revert_impersonate
+      return unless current_staff_user
+      sign_in_user current_staff_user
+      session[:staff_user_id] = nil
+    end
+
+    def sign_in_user(user)
+      method = UserImpersonate::Engine.config.try(:sign_in_user_method) || "sign_in"
+      self.send(method.to_sym, user)
+    end
+
+    def authenticate_user!
+      method = UserImpersonate::Engine.config.try(:authenticate_user_method) || "ensure_authenticated"
+      # super.send(method.to_sym)
+      if method == "authenticate_user!"
+        super.send(method.to_sym)
+      else
+        self.send(method.to_sym)
+      end
+    end
+
     # Helper to load a User, using all the UserImpersonate config options
     def find_user(id)
       user_class.send(user_finder_method, id)

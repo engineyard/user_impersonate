@@ -7,5 +7,8 @@ module UserImpersonate
 
     config.redirect_on_impersonate = "/"
     config.redirect_on_revert = "/impersonate"
+
+    config.authenticate_user_method = "authenticate_user!" # protect impersonation controller
+    config.sign_in_user_method      = "sign_in"            # sign_in(user)
   end
 end
