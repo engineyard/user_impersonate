@@ -30,7 +30,14 @@ Add the gem to your Rails application's Gemfile and run `bundle`:
 gem "user_impersonate"
 ```
 
-Add the following line within your `config/routes.rb`:
+Run the (sort of optional) generator:
+
+```
+bundle
+rails g user_impersonate
+```
+
+This adds the following line within your `config/routes.rb`:
 
 ``` ruby
 mount UserImpersonate::Engine => "/impersonate", as: "impersonate_engine"
@@ -44,15 +51,6 @@ Include in your layout files support for `flash[:error]` and `flash[:notice]`, s
 ```
 
 Next, add the impersonation header to your layouts:
-
-HAML:
-
-``` haml
-- if current_staff_user
-  = render 'user_impersonate/header'
-```
-
-or ERb:
 
 ``` erb
 <% if current_staff_user %>
