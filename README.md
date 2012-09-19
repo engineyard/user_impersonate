@@ -77,6 +77,7 @@ def to_s
 end
 ```
 
+You can now go to [http://localhost:3000/impersonate](http://localhost:3000/impersonate) to see the list of users, except your own user account. If you impersonate one you will see the magic!
 
 ## Integration
 
