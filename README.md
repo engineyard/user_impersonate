@@ -137,22 +137,19 @@ Configure alternate paths using:
 ???
 ```
 
-### User model
+### User model & lookup
 
-By default, it assumes the User model is `User`.
+By default, it assumes the User model is `User`, that you use `User.find(id)` to find a user, and `aUser.id` to get the related id value.
 
-Override with:
-
-``` ruby
-???
-```
-
-### User lookup
-
-By default, a User to be impersonated is looked-up using `User.find(params[:user_id])`, where `params[:user_id]` is the `User#to_params` value. That is, the ActiveRecord method.
-
-Override `find` with:
+You can fix this default behavior in `config/initializers/user_impersonate.rb`, which is created by the generator above.
 
 ``` ruby
-???
+module UserImpersonate
+  class Engine < Rails::Engine
+    config.user_class           = "User"
+    config.user_finder          = "find"   # User.find
+    config.user_id_column       = "id"     # Such that User.find(aUser.id) works
+    config.user_is_staff_method = "staff?" # current_user.staff?
+  end
+end
 ```
