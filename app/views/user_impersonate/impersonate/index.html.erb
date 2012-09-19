@@ -14,7 +14,7 @@
 <ul>
   <% @users.each do |user| %>
   <li>
-    <%= user.name %>
+    <%= user %>
     <%= link_to "Impersonate", impersonate_user_path(user) %>
   </li>
   <% end %>

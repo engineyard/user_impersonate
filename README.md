@@ -30,7 +30,20 @@ Add the gem to your Rails application's Gemfile and run `bundle`:
 gem "user_impersonate"
 ```
 
-Next, add the following to your layout:
+Add the following line within your `config/routes.rb`:
+
+``` ruby
+mount UserImpersonate::Engine => "/impersonate", as: "impersonate_engine"
+```
+
+Include in your layout files support for `flash[:error]` and `flash[:notice]`, such as:
+
+``` erb
+<p class="notice"><%= flash[:notice] %></p>
+<p class="alert"><%= flash[:error] %></p>
+```
+
+Next, add the impersonation header to your layouts:
 
 HAML:
 
@@ -47,12 +60,30 @@ or ERb:
 <% end %>
 ```
 
+Next, add staff concept to your User model.
+
+To test the engine out, make all users staff!
+
+``` ruby
+# app/models/user.rb
+
+def staff?
+  true
+end
+
+# String to represent a user (email, name, etc)
+def to_s
+  email
+end
+```
+
+
 ## Integration
 
 To support this Rails engine, you need to add some things.
 
 * `current_user` helper within controllers & helpers
-* `current_user.name` (User#name, used within the default header partial)
+* `current_user` (User#name, used within the default header partial)
 * `current_user.staff?` - your `User` model needs a `staff?` to identify if the current user is allowed to impersonate other users; if missing, no user can access impersonation system
 
 ### User#staff?
@@ -81,9 +112,9 @@ The `app/views/user_impersonate/_header.html.haml` HAML partial for this header 
   .impersonate-controls.page
     .impersonate-info.grid_12
       You (
-      %span.admin_name= current_staff_user.name
+      %span.admin_name= current_staff_user
       ) are impersonating
-      %span.user_name= link_to current_user.name, url_for([:admin, current_user])
+      %span.user_name= link_to current_user, url_for([:admin, current_user])
       ( User id:
       %span.user_id= current_user.id
       )
@@ -91,14 +122,14 @@ The `app/views/user_impersonate/_header.html.haml` HAML partial for this header 
         ( No accounts )
       - else
         ( Account name:
-        %span.account_id= link_to current_user.accounts.first.name, url_for([:admin, current_user.accounts.first])
+        %span.account_id= link_to current_user.accounts.first, url_for([:admin, current_user.accounts.first])
         , id:
         %strong= current_user.accounts.first.id
         )
     .impersonate-buttons.grid_12
       = form_tag url_for([:ssh_key, :admin, current_user]), :method => "put" do
         %span Support SSH Key
-        = select_tag 'public_key', options_for_select(current_staff_user.keys.map {|k| k.name})
+        = select_tag 'public_key', options_for_select(current_staff_user.keys.map {|k| k})
         %button{:type => "submit"} Install SSH Key
       or
       = form_tag [:admin, :revert], :method => :delete, :class => 'revert-form' do

@@ -1,5 +1,5 @@
 <% if user_signed_in? -%>
-  <h1>Welcome <%= current_user.name %>!</h1>
+  <h1>Welcome <%= current_user %>!</h1>
   <% if current_user.staff? %>
     <%= link_to "Impersonate a user", impersonate_engine.root_url, method: "DELETE" %>
   <% end %>

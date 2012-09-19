@@ -30,7 +30,7 @@ module UserImpersonate
       user = current_user
       revert_impersonate
       if user
-        flash[:notice] = "No longer impersonating #{user.name}"
+        flash[:notice] = "No longer impersonating #{user}"
         redirect_to main_app.root_url
       else
         flash[:notice] = "No longer impersonating a user"
