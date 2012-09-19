@@ -131,10 +131,16 @@ The `app/views/user_impersonate/_header.html.haml` HAML partial for this header 
 
 By default, when you impersonate and when you stop impersonating a user you are redirected to the root url.
 
-Configure alternate paths using:
+Configure alternate paths in `config/initializers/user_impersonate.rb`, which is created by the generator above.
 
 ``` ruby
-???
+# config/initializers/user_impersonate.rb
+module UserImpersonate
+  class Engine < Rails::Engine
+    config.redirect_on_impersonate = "/"
+    config.redirect_on_revert = "/impersonate"
+  end
+end
 ```
 
 ### User model & lookup
@@ -144,6 +150,7 @@ By default, it assumes the User model is `User`, that you use `User.find(id)` to
 You can fix this default behavior in `config/initializers/user_impersonate.rb`, which is created by the generator above.
 
 ``` ruby
+# config/initializers/user_impersonate.rb
 module UserImpersonate
   class Engine < Rails::Engine
     config.user_class           = "User"
