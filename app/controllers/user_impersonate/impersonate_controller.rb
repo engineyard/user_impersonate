@@ -18,7 +18,7 @@ module UserImpersonate
                         current_user.send(user_id_column.to_sym) # e.g. current_user.id
                       ])
       if params[:search]
-        @users = @users.where("name like ?", "%#{params[:search]}%")
+        @users = @users.where("#{user_name_column} like ?", "%#{params[:search]}%")
       end
     end
     
@@ -113,6 +113,10 @@ module UserImpersonate
     
     def user_id_column
       config_or_default :user_id_column, "id"
+    end
+    
+    def user_name_column
+      config_or_default :user_name_column, "name"
     end
     
     def user_is_staff_method
