@@ -18,7 +18,7 @@ module UserImpersonate
                         current_user.send(user_id_column.to_sym) # e.g. current_user.id
                       ])
       if params[:search]
-        @users = @users.where("name like ?", "%#{params[:search]}%")
+        @users = @users.where("email like ?", "%#{params[:search]}%")
       end
     end
     
