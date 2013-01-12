@@ -157,6 +157,7 @@ module UserImpersonate
     config.user_finder          = "find"   # User.find
     config.user_id_column       = "id"     # Such that User.find(aUser.id) works
     config.user_is_staff_method = "staff?" # current_user.staff?
+    config.search_column  = "name" # Such that User.where("name like ?", search_value) works
   end
 end
 ```
