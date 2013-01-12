@@ -20,7 +20,7 @@ module UserImpersonate
       if params[:search]
         @users = @users.where("#{search_column} like ?", "%#{params[:search]}%")
       end
-      @users.paginate(page: params[:page])
+      @users = @users.paginate(page: params[:page])
     end
     
     # Perform the user impersonate action
