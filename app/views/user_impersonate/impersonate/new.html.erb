@@ -1,0 +1,5 @@
+<% broadcast "/request_access/#{params[:id]}" do %>
+  $('.access_request').modal('show');
+<% end %>
+
+<h1>Waiting user accept...</h1>

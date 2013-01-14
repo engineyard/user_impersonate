@@ -23,6 +23,10 @@ module UserImpersonate
       @users = @users.paginate(page: params[:page])
     end
     
+    def new 
+      @user = find_user(params[:user_id])
+    end
+    
     # Perform the user impersonate action
     # GET /impersonate/user/123 
     def create
