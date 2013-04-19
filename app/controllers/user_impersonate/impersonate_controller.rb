@@ -50,7 +50,7 @@ module UserImpersonate
 
     private
     def current_user_must_be_staff!
-      unless user_is_staff?(current_manager)
+      unless user_is_staff?(send(current_user_method))
         flash[:error] = "You don't have access to this section."
         redirect_to :back
       end
