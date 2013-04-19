@@ -46,12 +46,12 @@
       You (
       <span class="admin_name"><%= current_staff_user %></span>
       ) are impersonating
-      <span class="admin_name"><%= current_user %></span>
-      ( User id: <%= current_user.to_param %> )
+      <span class="admin_name"><%= current_user_impersonated %></span>
+      ( User id: <%= current_user_impersonated.to_param %> )
     </div>
 
     <div class="impersonate-buttons">
-      <%= form_tag impersonate_engine.revert_impersonate_user_url, 
+      <%= form_tag impersonate_engine.revert_impersonate_user_url,
           :method => :delete, :class => 'revert-form' do %>
         <button type = "submit"> Revert to admin</button>
       <% end %>
