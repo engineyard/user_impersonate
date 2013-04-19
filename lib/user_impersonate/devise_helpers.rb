@@ -5,10 +5,10 @@ module UserImpersonate
       # current_user changes from a staff user to
       # +new_user+; current user stored in +session[:staff_user_id]+
       def impersonate(new_user)
-        session[:staff_user_id] = current_user.id # 
+        session[:staff_user_id] = send(current_user_method).id #
         sign_in new_user, bypass: true
       end
-      
+
       # revert the +current_user+ back to the staff user
       # stored in +session[:staff_user_id]+
       def revert_impersonate
@@ -17,7 +17,7 @@ module UserImpersonate
         session[:staff_user_id] = nil
       end
     end
-    
+
     module UrlHelpers
       def current_staff_user
         return unless session[:staff_user_id]

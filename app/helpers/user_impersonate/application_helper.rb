@@ -7,5 +7,10 @@ module UserImpersonate
       user_class = user_class_name.constantize
       @staff_user ||= user_class.send(user_finder_method, session[:staff_user_id])
     end
+
+    def current_user_impersonated
+      current_user_method_name = UserImpersonate::Engine.config.current_user_method || "current_user"
+      send(current_user_method_name)
+    end
   end
 end
