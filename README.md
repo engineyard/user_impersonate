@@ -172,7 +172,7 @@ module UserImpersonate
     config.user_finder                 = "find"   # User.find
     config.user_id_column              = "id"     # Such that User.find(aUser.id) works
     config.user_is_staff_method        = "staff?" # current_user.staff?
-    config.user_can_impersonate_method = nil # current_user.can_impersonate?(user_id)
+    config.user_can_impersonate_method = nil      # current_user.can_impersonate?(user_id)
   end
 end
 ```

@@ -5,7 +5,7 @@ module UserImpersonate
     config.user_id_column              = "id"     # Such that User.find(aUser.id) works
     config.user_name_column            = "name"   # Such that User.where("#{user_name_column} like ?", "%#{params[:search]}%") works
     config.user_is_staff_method        = "staff?" # current_user.staff?
-    config.user_can_impersonate_method = nil # current_user.can_impersonate?
+    config.user_can_impersonate_method = nil      # current_user.can_impersonate?
 
     config.redirect_on_impersonate = "/"
     config.redirect_on_revert = "/impersonate"
