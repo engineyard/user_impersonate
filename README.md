@@ -75,6 +75,7 @@ To support this Rails engine, you need to add some things.
 
 * `current_user` helper within controllers & helpers
 * `current_user.staff?` - your `User` model needs a `staff?` to identify if the current user is allowed to impersonate other users; if missing, no user can access impersonation system
+* `current_user.can_impersonate?(user_id)` - optional method on your `User` model that can be used to check permissions on whether this user can impersonate a specific user
 
 ### User#staff?
 
@@ -84,6 +85,20 @@ One way to add this helper is to add a column to your User model:
 rails g migration add_staff_flag_to_users staff:boolean
 rake db:migrate db:test:prepare
 ```
+
+### User#can_impersonate?(user_id)
+
+This method allows you to create logic to decide whether one user can impersonate another.  For example, you may have a customer service rep who can impersonate users, but not administrators.  This method will get passed the user_id that is to be impersonated, but the logic is up to you to decide.  For example:
+
+```
+def can_impersonate?(user_id)
+  target_user = User.find(user_id)
+  return false if self.role == 'customer service' && target_user.role == 'admin'
+  true
+end
+```
+
+Note that this method is optional.  If you don't want to limit who can impersonate whom, then simply don't declare the method in your configuration.
 
 ## Customization
 
@@ -153,10 +168,11 @@ You can fix this default behavior in `config/initializers/user_impersonate.rb`, 
 # config/initializers/user_impersonate.rb
 module UserImpersonate
   class Engine < Rails::Engine
-    config.user_class           = "User"
-    config.user_finder          = "find"   # User.find
-    config.user_id_column       = "id"     # Such that User.find(aUser.id) works
-    config.user_is_staff_method = "staff?" # current_user.staff?
+    config.user_class                  = "User"
+    config.user_finder                 = "find"   # User.find
+    config.user_id_column              = "id"     # Such that User.find(aUser.id) works
+    config.user_is_staff_method        = "staff?" # current_user.staff?
+    config.user_can_impersonate_method = nil      # current_user.can_impersonate?(user_id)
   end
 end
 ```
