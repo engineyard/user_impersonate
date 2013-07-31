@@ -160,3 +160,50 @@ module UserImpersonate
   end
 end
 ```
+
+### Spree specific stuff
+
+Modify User and add current_user helper
+``` ruby
+Spree::User.class_eval do
+  def staff?
+    has_spree_role?('admin')
+  end
+
+  def to_s
+    email
+  end
+end
+
+ApplicationController.class_eval do
+  helper_method :current_user
+  def current_user
+    spree_current_user
+  end
+end
+```
+
+Initializer
+``` ruby
+# config/initializers/user_impersonate.rb
+module UserImpersonate
+  class Engine < Rails::Engine
+    config.user_class           = "Spree::User"
+    config.user_finder          = "find"   # User.find
+    config.user_id_column       = "id"     # Such that User.find(aUser.id) works
+    config.user_is_staff_method = "staff?" # current_user.staff?
+    config.authenticate_user_method = "authenticate_spree_user!"
+    config.redirect_on_impersonate = "/"
+    config.redirect_on_revert = "/"
+    config.user_name_column = "users"
+  end
+end
+```
+
+Deface to add header
+``` ruby
+Deface::Override.new(:virtual_path => "spree/layouts/spree_application",
+                     :name => "impersonate_header", 
+                     :insert_before => "div.container",
+                     :text => "<% if current_staff_user %><%= render 'user_impersonate/header' %><% end %>")
+```
