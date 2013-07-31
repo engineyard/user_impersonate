@@ -108,7 +108,7 @@ module UserImpersonate
     end
     
     def user_table
-      user_class_name.tableize
+      user_class_name.tableize.tr('/', '_')
     end
     
     def user_id_column
@@ -124,7 +124,7 @@ module UserImpersonate
     end
     
     def redirect_on_impersonate(impersonated_user)
-      url = config_or_default :redirect_on_impersonate, main_app.root_url
+      url = config_or_default :redirect_on_impersonate, root_url
       redirect_to url
     end
     
