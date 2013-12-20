@@ -4,7 +4,7 @@ module UserImpersonate
   class ImpersonateController < ApplicationController
     before_filter :authenticate_the_user
     before_filter :current_user_must_be_staff!, except: ["destroy"]
-    
+
     # Display list of all users, except current (staff) user
     # Is this exclusion unnecessary complexity?
     # Normal apps wouldn't bother with this action; rather they would
@@ -21,17 +21,17 @@ module UserImpersonate
         @users = @users.where("#{user_name_column} like ?", "%#{params[:search]}%")
       end
     end
-    
+
     # Perform the user impersonate action
-    # GET /impersonate/user/123 
+    # GET /impersonate/user/123
     def create
       @user = find_user(params[:user_id])
       impersonate(@user)
       redirect_on_impersonate(@user)
     end
-    
+
     # Revert the user impersonation
-    # GET /impersonation/revert
+    # DELETE /impersonation/revert
     def destroy
       unless current_staff_user
         flash[:notice] = "You weren't impersonating anyone"
@@ -47,7 +47,7 @@ module UserImpersonate
         redirect_on_revert
       end
     end
-    
+
     private
     def current_user_must_be_staff!
       unless user_is_staff?(current_user)
@@ -61,10 +61,10 @@ module UserImpersonate
     # current_user changes from a staff user to
     # +new_user+; current user stored in +session[:staff_user_id]+
     def impersonate(new_user)
-      session[:staff_user_id] = current_user.id # 
+      session[:staff_user_id] = current_user.id #
       sign_in_user new_user
     end
-    
+
     # revert the +current_user+ back to the staff user
     # stored in +session[:staff_user_id]+
     def revert_impersonate
@@ -87,7 +87,7 @@ module UserImpersonate
     def find_user(id)
       user_class.send(user_finder_method, id)
     end
-    
+
     # Similar to user.staff?
     # Using all the UserImpersonate config options
     def user_is_staff?(user)
@@ -106,28 +106,28 @@ module UserImpersonate
     def user_class
       user_class_name.constantize
     end
-    
+
     def user_table
       user_class_name.tableize.tr('/', '_')
     end
-    
+
     def user_id_column
       config_or_default :user_id_column, "id"
     end
-    
+
     def user_name_column
       config_or_default :user_name_column, "name"
     end
-    
+
     def user_is_staff_method
       config_or_default :user_is_staff_method, "staff?"
     end
-    
+
     def redirect_on_impersonate(impersonated_user)
       url = config_or_default :redirect_on_impersonate, root_url
       redirect_to url
     end
-    
+
     def redirect_on_revert(impersonated_user = nil)
       url = config_or_default :redirect_on_revert, root_url
       redirect_to url
