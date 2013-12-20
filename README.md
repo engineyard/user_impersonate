@@ -1,3 +1,7 @@
+# Disclaimer
+
+We are no longer maintaining this project going forward. Feel free to fork and make your own!
+
 # User Impersonate
 
 Allow staff users to impersonate your normal users: see what they see, only do what they can do.
